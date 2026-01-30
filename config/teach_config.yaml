@@ -16,3 +16,8 @@ gripper_sequence_settings:
   release_max_wait_s: 3.0                 # Max time (seconds) to wait for gripper to physically open before proceeding to post-release delay.
   release_check_tolerance: 50             # Position tolerance for checking if gripper has reached the open state.
   release_complete_delay_s: 0           # Delay (seconds) *after* gripper is confirmed open (or timed out opening). Arm stays ON. Recording continues.
+
+run_settings:
+  # Used by run_taught_path.py and robot_action.py for path playback pacing
+  script_pacing_factor: 0.6            # Multiplier for inter-waypoint sleep during playback
+  minimal_script_sleep_s: 0.01         # Minimum sleep between waypoints (seconds)
