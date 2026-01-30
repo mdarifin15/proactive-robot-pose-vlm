@@ -13,9 +13,9 @@ A **command-free** proactive robot assistance system that observes a user's body
 
 ## Demo
 
-<video src="https://github.com/mdarifin15/proactive-robot-pose-vlm/raw/main/assets/demo_videos/20.06.2025_21.36.22_REC%20ok2.mp4" width="100%" controls></video>
+[![Demo Video](assets/demo_thumbnail.jpg)](https://github.com/mdarifin15/proactive-robot-pose-vlm/releases/download/v1.0/20.06.2025_21.36.22_REC.ok2.mp4)
 
-> The robot observes a user's pose, infers their need via Gemini 2.0 Flash, picks up the appropriate item, and delivers it while speaking naturally.
+> **Click the image above to download and watch the full demo video.** The robot observes a user's pose, infers their need via Gemini 2.0 Flash, picks up the appropriate item, and delivers it while speaking naturally.
 
 ---
 
