@@ -11,6 +11,33 @@ A **command-free** proactive robot assistance system that observes a user's body
 
 ---
 
+## Demo
+
+<video src="https://github.com/mdarifin15/proactive-robot-pose-vlm/raw/main/assets/demo_videos/20.06.2025_21.36.22_REC%20ok2.mp4" width="100%" controls></video>
+
+> The robot observes a user's pose, infers their need via Gemini 2.0 Flash, picks up the appropriate item, and delivers it while speaking naturally.
+
+---
+
+## Dataset Samples
+
+The system is evaluated on 6 scenarios representing different user needs:
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/dataset_images/1A.jpg" width="150"><br><b>Thirst</b><br><code>water</code></td>
+    <td align="center"><img src="assets/dataset_images/2A.jpg" width="150"><br><b>Cold / Allergies</b><br><code>tissue</code></td>
+    <td align="center"><img src="assets/dataset_images/3A.jpg" width="150"><br><b>Feeling Hot</b><br><code>remote control AC</code></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/dataset_images/4A.jpg" width="150"><br><b>Feeling Cold</b><br><code>blanket</code></td>
+    <td align="center"><img src="assets/dataset_images/5A.jpg" width="150"><br><b>Difficulty Seeing</b><br><code>glasses</code></td>
+    <td align="center"><img src="assets/dataset_images/6A.jpg" width="150"><br><b>Fall / Emergency</b><br><code>emergency call</code></td>
+  </tr>
+</table>
+
+---
+
 ## How It Works
 
 ```
