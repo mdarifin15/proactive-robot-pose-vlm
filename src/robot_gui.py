@@ -10,7 +10,7 @@ from PyQt6.QtWidgets import (
     QMessageBox, QFrame
 )
 from PyQt6.QtGui import QPixmap, QFont, QPalette, QColor
-from PyQt6.QtCore import Qt, pyqtSlot
+from PyQt6.QtCore import Qt, pyqtSlot, QThread
 
 # --- Import worker classes from our updated robot_action.py ---
 from robot_action import WorkerSignals, AnalysisWorker, RobotActionWorker
