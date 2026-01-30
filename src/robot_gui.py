@@ -399,7 +399,7 @@ class RobotAppGUI(QWidget):
 
             # Terminate PyAudio when the GUI closes
             if self.pya_instance:
-                tts_handler.terminate_pyaudio_for_tts(self.pya_instance)
+                tts_handler.terminate_pyaudio_for_tts()
 
             event.accept()
             QApplication.instance().quit()

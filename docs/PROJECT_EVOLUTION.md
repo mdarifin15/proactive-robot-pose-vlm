@@ -1,6 +1,6 @@
 # FTMP Project Evolution Log
 
-This document chronicles the evolution of the FTMP (Full-Task Medical Platform) project from early backend experiments to the final integrated robotic assistant system. The project spans 15 folders in `/home/arifin/FTMP/`, developed iteratively with each phase building on lessons from the previous one.
+This document chronicles the evolution of the FTMP (Full-Task Medical Platform) project from early backend experiments to the final integrated robotic assistant system. The project was developed iteratively across multiple phases, with each phase building on lessons from the previous one. This repository contains the final integrated version (Phase 9).
 
 ---
 

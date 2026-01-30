@@ -20,21 +20,21 @@ Proactive Robot Assistance System: Google Gemini VLM + OpenManipulator-X + PyQt6
 ## 2. Quick Install
 
 ```bash
-# 1. Clone / navigate to the project
-cd "/home/arifin/FTMP/Robot Arm - GUI Integration"
+# 1. Clone the repository
+git clone https://github.com/mdarifin15/proactive-robot-pose-vlm.git
+cd proactive-robot-pose-vlm
 
 # 2. Create and activate virtual environment
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 
 # 3. Install dependencies
-pip install PyQt6 google-genai python-dotenv pyyaml pyaudio keyboard dynamixel-sdk
+pip install -r requirements.txt
 
 # 4. Create .env file with your Gemini API key
-echo 'GEMINI_API_KEY=your_api_key_here' > .env
+cp .env.example .env
+# Edit .env and replace the placeholder with your actual key
 ```
-
-Replace `your_api_key_here` with your actual Gemini API key.
 
 > **Note:** `keyboard` requires root on Linux (`sudo`) for the teach script. `pyaudio` requires `portaudio` system library (`sudo apt install portaudio19-dev` on Ubuntu).
 
@@ -42,7 +42,7 @@ Replace `your_api_key_here` with your actual Gemini API key.
 
 ## 3. Hardware Connection
 
-Edit `robot_hardware_config.yaml`, section `connection_settings`:
+Edit `config/robot_hardware_config.yaml`, section `connection_settings`:
 
 ```yaml
 connection_settings:
@@ -73,10 +73,10 @@ sudo usermod -aG dialout $USER   # Linux, then log out/in
 
 This lets you test VLM image analysis without any robot hardware connected.
 
-1. Activate your venv: `source venv/bin/activate`
+1. Activate your venv: `source .venv/bin/activate`
 2. Run the GUI:
    ```bash
-   python main.py
+   python src/main.py
    ```
 3. Click **"Upload Image"** and select a photo of a person.
 4. The GUI sends the image to Gemini and displays:
@@ -98,13 +98,13 @@ Before the robot can act, you must teach it paths for each action (e.g., `water`
 1. Connect the OpenManipulator-X via USB.
 2. Run the teaching script (requires `sudo` on Linux for keyboard input):
    ```bash
-   sudo venv/bin/python teach_paths.py
+   sudo .venv/bin/python src/teach_paths.py
    ```
 3. The interactive menu appears:
    ```
    Menu: 't'-teach new, 'l'-list, 'd'-delete, 'q'-quit
    ```
-4. Press **`t`** to teach a new path. Enter the action name exactly as listed in `llm_config.yaml` (e.g., `water`).
+4. Press **`t`** to teach a new path. Enter the action name exactly as listed in `config/llm_config.yaml` (e.g., `water`).
 5. The robot moves to its **home pose**, then prompts you:
    ```
    Press Enter to disable ARM torque and START recording...
@@ -117,12 +117,12 @@ Before the robot can act, you must teach it paths for each action (e.g., `water`
    | **Enter** | Stop recording and save the path |
 8. Waypoints are recorded automatically every 0.5s.
 9. Repeat for each action (`tissue`, `blanket`, `glasses`, etc.).
-10. Paths are saved to `taught_paths.yaml`.
+10. Paths are saved to `data/taught_paths.yaml`.
 
 ### Step B: Run the Full System
 
 ```bash
-python main.py
+python src/main.py
 ```
 
 1. Upload an image.
@@ -176,7 +176,7 @@ The window is titled **"Symptom Recognition & Robot Assistant"** (850x700 defaul
 FATAL ERROR: Could not open port /dev/ttyUSB0
 ```
 - Check cable connection and run `ls /dev/ttyUSB*`.
-- Update `device_name` in `robot_hardware_config.yaml`.
+- Update `device_name` in `config/robot_hardware_config.yaml`.
 - Add user to `dialout` group: `sudo usermod -aG dialout $USER` (re-login required).
 
 ### Gemini API Key Error
@@ -207,13 +207,13 @@ ERROR: Failed to move to Home / Robot not connected
 ```
 ImportError: You must be root to use this library on linux.
 ```
-- Run `teach_paths.py` with `sudo`: `sudo venv/bin/python teach_paths.py`.
+- Run `teach_paths.py` with `sudo`: `sudo .venv/bin/python src/teach_paths.py`.
 
 ---
 
 ## 8. Quick Config Reference
 
-### robot_hardware_config.yaml
+### config/robot_hardware_config.yaml
 
 | Key | Default | What to Change |
 |---|---|---|
@@ -228,14 +228,14 @@ ImportError: You must be root to use this library on linux.
 | `gripper_settings.close_pos` | `2620` | Gripper close position |
 | `gripper_settings.default_grasp_current_limit` | `40` | Grasp force (~107 mA) |
 
-### llm_config.yaml
+### config/llm_config.yaml
 
 | Key | Default | What to Change |
 |---|---|---|
 | `vision_model_name` | `gemini-2.0-flash` | Gemini model to use |
 | `available_robot_actions` | `[water, tissue, remote control AC, blanket, glasses, emergency call, person, neutral]` | Add/remove actions the robot can perform |
 
-### tts_config.yaml
+### config/tts_config.yaml
 
 | Key | Default | What to Change |
 |---|---|---|
@@ -243,7 +243,7 @@ ImportError: You must be root to use this library on linux.
 | `default_tts_voice` | `Kore` | Voice name |
 | `pyaudio_settings.playback_rate` | `24000` | Audio sample rate |
 
-### teach_config.yaml
+### config/teach_config.yaml
 
 | Key | Default | What to Change |
 |---|---|---|

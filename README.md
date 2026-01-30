@@ -116,34 +116,47 @@ Executes the physical action and communicates with the user.
 ## 4. Project Structure
 
 ```
-Robot Arm - GUI Integration/
-|
-|-- main.py                          # Application entry point
-|-- robot_gui.py                     # PyQt6 GUI (image upload, analysis display, action control)
-|-- robot_action.py                  # QThread workers for analysis and robot action execution
-|-- llm_analyzer.py                  # Gemini vision model image analysis
-|-- tts_handler.py                   # Gemini Live API text-to-speech with jitter buffer
-|
-|-- openmanipulator_x_control.py     # High-level robot orchestrator
-|-- arm_controller.py                # 4-joint arm control module
-|-- gripper_controller.py            # Gripper control module (current-based position)
-|-- dxl_sdk_interface.py             # Low-level Dynamixel SDK abstraction
-|
-|-- teach_paths.py                   # Interactive kinesthetic teaching script
-|-- run_taught_path.py               # Taught path playback script
-|-- path_smoother.py                 # Savitzky-Golay filter for path smoothing
-|
-|-- robot_hardware_config.yaml       # Robot hardware configuration
-|-- llm_config.yaml                  # Gemini model names, prompts, available actions
-|-- tts_config.yaml                  # TTS model, PyAudio, and persona settings
-|-- teach_config.yaml                # Teaching and recording parameters
-|
-|-- taught_paths.yaml                # Raw recorded motion paths
-|-- smoothed_paths.yaml              # Filtered/smoothed motion paths
-|-- taught_paths copy.yaml           # Backup of recorded paths
-|-- taught_paths old.yaml            # Previous version of recorded paths
-|
-|-- omx_control.py                   # Legacy monolithic controller (kept for reference)
+proactive-robot-pose-vlm/
+├── README.md                            # This file
+├── requirements.txt                     # pip dependencies
+├── .env.example                         # Template for API key
+├── .gitignore
+│
+├── src/                                 # All Python source code
+│   ├── main.py                          # Application entry point
+│   ├── robot_gui.py                     # PyQt6 GUI (image upload, analysis display, action control)
+│   ├── robot_action.py                  # QThread workers for analysis and robot action execution
+│   ├── llm_analyzer.py                  # Gemini vision model image analysis
+│   ├── tts_handler.py                   # Gemini Live API text-to-speech with jitter buffer
+│   ├── openmanipulator_x_control.py     # High-level robot orchestrator
+│   ├── arm_controller.py               # 4-joint arm control module
+│   ├── gripper_controller.py            # Gripper control module (current-based position)
+│   ├── dxl_sdk_interface.py             # Low-level Dynamixel SDK abstraction
+│   ├── teach_paths.py                   # Interactive kinesthetic teaching script
+│   ├── run_taught_path.py               # Taught path playback script
+│   └── path_smoother.py                 # Savitzky-Golay filter for path smoothing
+│
+├── config/                              # All YAML configurations
+│   ├── robot_hardware_config.yaml       # Robot hardware configuration
+│   ├── llm_config.yaml                  # Gemini model names, prompts, available actions
+│   ├── tts_config.yaml                  # TTS model, PyAudio, and persona settings
+│   └── teach_config.yaml               # Teaching and recording parameters
+│
+├── data/                                # Taught motion paths
+│   ├── taught_paths.yaml                # Raw recorded motion paths
+│   └── smoothed_paths.yaml              # Filtered/smoothed motion paths
+│
+├── assets/                              # Presentation, images, videos
+│   ├── presentation/
+│   │   └── 2025_FTMP_0627_Arifin.pdf
+│   ├── dataset_images/                  # 30 test images (6 scenarios × 5)
+│   └── demo_videos/                     # Performance demo recordings
+│
+└── docs/                                # Documentation
+    ├── CODE_REFERENCE.md
+    ├── QUICKSTART.md
+    ├── TECHNICAL_REPORT.md
+    └── PROJECT_EVOLUTION.md
 ```
 
 ---
@@ -374,8 +387,8 @@ Objects placed within the robot's reach on a table:
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-name>
+   git clone https://github.com/mdarifin15/proactive-robot-pose-vlm.git
+   cd proactive-robot-pose-vlm
    ```
 
 2. **Create and activate a virtual environment:**
@@ -387,17 +400,17 @@ Objects placed within the robot's reach on a table:
 
 3. **Install dependencies:**
    ```bash
-   pip install google-genai PyQt6 pyaudio Pillow dynamixel-sdk pyyaml python-dotenv scipy numpy keyboard
+   pip install -r requirements.txt
    ```
 
 4. **Set up the API key:**
-   Create a `.env` file in the project root:
-   ```
-   GEMINI_API_KEY=your_gemini_api_key_here
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your Gemini API key
    ```
 
 5. **Configure the serial port:**
-   Edit `robot_hardware_config.yaml` and set `device_name` to your robot's serial port:
+   Edit `config/robot_hardware_config.yaml` and set `device_name` to your robot's serial port:
    ```yaml
    connection_settings:
      device_name: "/dev/ttyUSB0"    # Linux
@@ -406,18 +419,18 @@ Objects placed within the robot's reach on a table:
 
 6. **Teach robot motions (first time only):**
    ```bash
-   python teach_paths.py
+   sudo .venv/bin/python src/teach_paths.py   # sudo required on Linux for keyboard module
    ```
    Follow the interactive prompts to record a motion path for each action label (water, tissue, blanket, glasses, remote control AC, emergency call).
 
 7. **Optionally smooth the recorded paths:**
    ```bash
-   python path_smoother.py
+   python src/path_smoother.py
    ```
 
 8. **Run the application:**
    ```bash
-   python main.py
+   python src/main.py
    ```
 
 ---
@@ -426,7 +439,7 @@ Objects placed within the robot's reach on a table:
 
 ### Main GUI Workflow
 
-1. **Launch:** Run `python main.py`. The GUI window "Symptom Recognition & Robot Assistant" will appear.
+1. **Launch:** Run `python src/main.py`. The GUI window "Symptom Recognition & Robot Assistant" will appear.
 2. **Upload Image:** Click "Upload Image" and select a test image showing a person's pose/condition.
 3. **Automatic Analysis:** The system sends the image to Gemini 2.0 Flash, which returns:
    - A natural language symptom description
@@ -442,7 +455,7 @@ Objects placed within the robot's reach on a table:
 ### Teaching New Motions
 
 ```bash
-python teach_paths.py
+sudo .venv/bin/python src/teach_paths.py
 ```
 
 1. The arm moves to home position, then torque is disabled
@@ -454,7 +467,7 @@ python teach_paths.py
 ### Playing Back Motions
 
 ```bash
-python run_taught_path.py
+python src/run_taught_path.py
 ```
 
 Select a previously recorded path from the menu for playback.

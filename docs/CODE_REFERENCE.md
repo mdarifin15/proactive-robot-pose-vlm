@@ -42,9 +42,11 @@ Complete API reference for all Python modules in the Symptom Recognition & Robot
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `CONFIG_ROBOT_PATH` | `'robot_hardware_config.yaml'` | Path to robot hardware configuration |
-| `CONFIG_LLM_PATH` | `'llm_config.yaml'` | Path to LLM configuration |
-| `CONFIG_TTS_PATH` | `'tts_config.yaml'` | Path to TTS configuration |
+| `PROJECT_ROOT` | *(computed)* | Project root directory (parent of `src/`) |
+| `CONFIG_DIR` | `PROJECT_ROOT/config` | Configuration directory |
+| `CONFIG_ROBOT_PATH` | `CONFIG_DIR/robot_hardware_config.yaml` | Path to robot hardware configuration |
+| `CONFIG_LLM_PATH` | `CONFIG_DIR/llm_config.yaml` | Path to LLM configuration |
+| `CONFIG_TTS_PATH` | `CONFIG_DIR/tts_config.yaml` | Path to TTS configuration |
 
 ### Functions
 
@@ -180,8 +182,11 @@ RobotAppGUI(config_robot, config_llm, config_tts, gemini_client, parent=None)
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `OMX_CONFIG_FILE` | `"robot_hardware_config.yaml"` | Robot hardware config path |
-| `TEACH_CONFIG_FILE` | `"teach_config.yaml"` | Teach config path |
+| `PROJECT_ROOT` | *(computed)* | Project root directory (parent of `src/`) |
+| `CONFIG_DIR` | `PROJECT_ROOT/config` | Configuration directory |
+| `DATA_DIR` | `PROJECT_ROOT/data` | Data directory |
+| `OMX_CONFIG_FILE` | `CONFIG_DIR/robot_hardware_config.yaml` | Robot hardware config path |
+| `TEACH_CONFIG_FILE` | `CONFIG_DIR/teach_config.yaml` | Teach config path |
 
 ### Class: `WorkerSignals(QObject)`
 
@@ -757,8 +762,11 @@ The interface expects constants in `dxl_common_constants` following this pattern
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `ROBOT_HW_CONFIG_FILE` | `"robot_hardware_config.yaml"` | Robot hardware config path |
-| `TEACH_CONFIG_FILE` | `"teach_config.yaml"` | Teaching config path |
+| `PROJECT_ROOT` | *(computed)* | Project root directory (parent of `src/`) |
+| `CONFIG_DIR` | `PROJECT_ROOT/config` | Configuration directory |
+| `DATA_DIR` | `PROJECT_ROOT/data` | Data directory |
+| `ROBOT_HW_CONFIG_FILE` | `CONFIG_DIR/robot_hardware_config.yaml` | Robot hardware config path |
+| `TEACH_CONFIG_FILE` | `CONFIG_DIR/teach_config.yaml` | Teaching config path |
 | `DEFAULT_TEACH_CONFIG_SETTINGS` | `dict` | Default teaching configuration (see below) |
 
 **`DEFAULT_TEACH_CONFIG_SETTINGS` structure:**
@@ -883,11 +891,14 @@ Interactive menu-driven interface for teaching multiple paths.
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `ROBOT_HW_CONFIG_FILE` | `"robot_hardware_config.yaml"` | Robot hardware config path |
-| `TEACH_CONFIG_FILE` | `"teach_config.yaml"` | Teach config path |
+| `PROJECT_ROOT` | *(computed)* | Project root directory (parent of `src/`) |
+| `CONFIG_DIR` | `PROJECT_ROOT/config` | Configuration directory |
+| `DATA_DIR` | `PROJECT_ROOT/data` | Data directory |
+| `ROBOT_HW_CONFIG_FILE` | `CONFIG_DIR/robot_hardware_config.yaml` | Robot hardware config path |
+| `TEACH_CONFIG_FILE` | `CONFIG_DIR/teach_config.yaml` | Teach config path |
 | `DEFAULT_SCRIPT_PACING_FACTOR` | `0.5` | Default sleep multiplier between waypoints |
 | `DEFAULT_MINIMAL_SCRIPT_SLEEP_S` | `0.01` | Default minimum sleep between waypoints |
-| `DEFAULT_PATHS_OUTPUT_FILE` | `"taught_paths.yaml"` | Default taught paths file |
+| `DEFAULT_PATHS_OUTPUT_FILE` | `"taught_paths.yaml"` | Default taught paths filename (joined with `DATA_DIR`) |
 
 ### Functions
 
@@ -954,8 +965,10 @@ Interactive loop that prompts for a path name and executes it. For each executio
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `INPUT_FILE` | `"taught_paths.yaml"` | Input file with raw path data |
-| `OUTPUT_FILE` | `"smoothed_paths.yaml"` | Output file for smoothed paths |
+| `PROJECT_ROOT` | *(computed)* | Project root directory (parent of `src/`) |
+| `DATA_DIR` | `PROJECT_ROOT/data` | Data directory |
+| `INPUT_FILE` | `DATA_DIR/taught_paths.yaml` | Input file with raw path data |
+| `OUTPUT_FILE` | `DATA_DIR/smoothed_paths.yaml` | Output file for smoothed paths |
 | `WINDOW_LENGTH` | `11` | Savitzky-Golay filter window length (must be odd) |
 | `POLY_ORDER` | `3` | Savitzky-Golay polynomial order |
 | `TIME_SCALING_FACTOR` | `1.2` | Multiplier applied to the total path duration |
