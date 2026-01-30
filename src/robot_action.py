@@ -29,10 +29,9 @@ class WorkerSignals(QObject):
     actions_finished = pyqtSignal(str)
 
 class AnalysisWorker(QThread):
-    # This class is unchanged
-    signals = WorkerSignals()
     def __init__(self, image_path, gemini_client, config_llm, config_robot, parent=None):
         super().__init__(parent)
+        self.signals = WorkerSignals(parent=self)
         self.image_path = image_path
         self.gemini_client = gemini_client
         self.config_llm = config_llm
@@ -58,10 +57,9 @@ class AnalysisWorker(QThread):
 
 
 class RobotActionWorker(QThread):
-    signals = WorkerSignals()
-
     def __init__(self, actions_to_perform, symptom_description, gemini_client, config_robot, config_llm, config_tts, pya_instance_ref, parent=None):
         super().__init__(parent)
+        self.signals = WorkerSignals(parent=self)
         self.actions_to_perform = actions_to_perform
         self.symptom_description = symptom_description
         self.gemini_client = gemini_client

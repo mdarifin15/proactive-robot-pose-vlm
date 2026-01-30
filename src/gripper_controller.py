@@ -190,7 +190,7 @@ class GripperController:
                           target_close_pos=self.close_pos, # Always try to fully close
                           wait_for_stop=True, 
                           desired_duration_s=desired_duration_s):
-            print("WARN [Gripper ID:{self.motor_id}] Gripper close command failed during pick.")
+            print(f"WARN [Gripper ID:{self.motor_id}] Gripper close command failed during pick.")
             return False # If close itself had an issue or timed out before stopping
 
         #print(f"INFO [Gripper ID:{self.motor_id}] Gripper grasp attempt complete. Waiting for {_grasp_wait_s}s...")
