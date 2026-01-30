@@ -73,7 +73,7 @@ class DynamixelSDKInterface:
              if length is None:
                  print(f"WARN (DynamixelSDKInterface): Could not infer length for {address_name}. Assuming based on common types or specify length_name.")
                  # Heuristic: guess based on common names, or default to 1 if unsure and not standard
-                 if "position" in address_name.lower() or "velocity" in address_name.lower() or "pwm" in address_name.lower() or "current" in address_name.lower() and "goal_current" not in address_name.lower() : # goal_current is often 2B
+                 if "position" in address_name.lower() or "velocity" in address_name.lower() or "pwm" in address_name.lower() or ("current" in address_name.lower() and "goal_current" not in address_name.lower()): # goal_current is often 2B
                      if "goal_current" in address_name.lower() or "present_current" in address_name.lower():
                          length = self._get_const("len_present_current", 2) # default to 2 for current
                      elif "goal_position" in address_name.lower() or "present_position" in address_name.lower():
