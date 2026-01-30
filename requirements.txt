@@ -1,0 +1,10 @@
+google-genai
+python-dotenv
+PyQt6
+PyYAML
+Pillow
+pyaudio
+numpy
+scipy
+keyboard
+dynamixel-sdk

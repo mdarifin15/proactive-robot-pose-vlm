@@ -1,0 +1,85 @@
+# robot_hardware_config.yaml
+
+# Settings for the main robot connection (used by openmanipulator_x_control.py)
+connection_settings:
+  device_name: "/dev/tty.usbserial-FTA2U31G"  # COM5 Or /dev/ttyUSB0 on Linux/Mac
+  baud_rate: 1000000
+  protocol_version: 2.0
+
+# Common constants for Dynamixel X-series motors (used by dxl_sdk_interface.py)
+dynamixel_common_constants:
+  # Control Table Addresses
+  addr_torque_enable: 64
+  addr_led: 65
+  addr_operating_mode: 11
+  addr_goal_current: 102
+  addr_profile_acceleration: 108
+  addr_profile_velocity: 112
+  addr_goal_position: 116
+  addr_present_current: 126
+  addr_present_position: 132
+  addr_hardware_error_status: 70
+  addr_moving: 122
+  # Add other addresses you might use, e.g., addr_present_input_voltage, etc.
+
+  # Data Lengths (in bytes)
+  len_torque_enable: 1
+  len_led: 1
+  len_operating_mode: 1
+  len_goal_current: 2
+  len_profile_acceleration: 4
+  len_profile_velocity: 4
+  len_goal_position: 4
+  len_present_current: 2
+  len_present_position: 4
+  len_hardware_error_status: 1
+  len_moving: 1
+  # Add other lengths corresponding to addresses you use
+
+  # Standard Values
+  torque_enable_val: 1
+  torque_disable_val: 0
+  position_control_mode_val: 3         # Typically for arm joints
+  current_based_position_control_mode_val: 5 # Typically for gripper
+  velocity_control_mode_val: 1         # For speed-based control
+  pwm_control_mode_val: 16             # For direct PWM control
+  comm_success_val: 0                  # Should match dynamixel_sdk.COMM_SUCCESS
+
+  # Motor-Specific Max Values (VERIFY THESE WITH YOUR MOTOR DATASHEETS)
+  # These are used for clamping or as reference upper limits in the code.
+  # Examples for XM430 series (e.g., XM430-W210 or XM430-W350):
+  max_goal_current_val: 1193          # Raw value. For XM430-W210, unit is 2.69mA. 1193 is ~3.2A.
+                                      # Choose a safe operational max if different from absolute max.
+  max_profile_velocity_val: 460       # Raw value. For XM430-W350 (0.229rpm/unit), 460 is ~105 RPM.
+                                      # For XM430-W210, max is ~265 for ~61 RPM.
+                                      # If unsure, start with a moderate value like 200-300.
+  max_profile_acceleration_val: 1000  # Raw value. Max is 32767. 1000 is ~21457 rev/min^2.
+                                      # Moderate values are 50-500. Your arm uses '5' for smoothness.
+                                      # This 'max' is a safety clamp for dynamic calculations.
+
+# Arm-specific configuration (used by arm_controller.py)
+arm_settings:
+  joint_ids: [11, 12, 13, 14]
+  default_operating_mode: 3      # Position Control Mode
+  default_profile_accel: 5         # Your tuned value for smoothness
+  default_profile_vel: 500         # Adjusted example, tune as needed (0.229rpm/unit)
+  home_pose: [2048, 1640, 2630, 1840]
+  rest_pose: [2048, 1024, 3040, 2300]
+  to_person_pose: [2048, 1540, 2490, 2060] # ADDED your new pose
+
+# Gripper-specific configuration (used by gripper_controller.py)
+gripper_settings:
+  id: 15
+  default_operating_mode: 5     # Current-based Position Control
+  open_pos: 1250
+  close_pos: 2620
+  default_grasp_current_limit: 40 # UPDATED value (Note: 40 * 2.69mA = ~107.6mA, quite gentle)
+  default_profile_accel: 15       # Example: Gripper can often be a bit quicker than arm accel
+  default_profile_vel: 300        # Example: (0.229rpm/unit)
+
+# Common motion parameters (can be used by arm, gripper, or orchestrator)
+common_motion_parameters:
+  default_joint_tolerance: 30      # Position tolerance for reaching a goal
+  default_wait_timeout_s: 7.0      # General timeout for movements
+  gripper_action_timeout_s: 3.0    # Specific timeout for gripper open/close actions
+  gripper_grasp_wait_s: 0.5        # How long to wait after gripper grasp command for securing

@@ -1,0 +1,18 @@
+# teach_config.yaml
+# Configuration settings for the teach_paths.py script
+
+general_teaching:
+  paths_output_file: "taught_paths.yaml"    # Where the recorded paths are saved
+  recording_interval_s: 0.5               # Target interval for periodic samples during teaching
+  arm_stabilize_duration_s: 0.2           # Time (seconds) to wait for arm to stabilize after arm torque is enabled
+
+gripper_sequence_settings:
+  # For GRASP action (when 'p' is pressed to close gripper)
+  grasp_prepare_duration_s: 0.8           # Influences speed of gentle grasp preparation (passed to prepare_gripper_for_gentle_grasp)
+  grasp_secure_delay_s: 1.0               # Delay (seconds) *after* grasp command is initiated. Arm stays ON. Recording continues.
+
+  # For RELEASE action (when 'p' is pressed to open gripper)
+  release_prepare_duration_s: 1.0         # Influences speed of gentle release preparation (passed to prepare_gripper_for_gentle_release)
+  release_max_wait_s: 3.0                 # Max time (seconds) to wait for gripper to physically open before proceeding to post-release delay.
+  release_check_tolerance: 50             # Position tolerance for checking if gripper has reached the open state.
+  release_complete_delay_s: 0           # Delay (seconds) *after* gripper is confirmed open (or timed out opening). Arm stays ON. Recording continues.
