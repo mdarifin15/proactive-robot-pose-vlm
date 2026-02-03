@@ -13,9 +13,9 @@ A **command-free** proactive robot assistance system that observes a user's body
 
 ## Demo
 
-[![Demo Video](assets/demo_thumbnail.jpg)](https://github.com/mdarifin15/proactive-robot-pose-vlm/releases/download/v1.0/20.06.2025_21.36.22_REC.ok2.mp4)
+[![Demo Video](assets/demo_thumbnail.jpg)](https://github.com/mdarifin15/proactive-robot-pose-vlm/releases)
 
-> **Click the image above to download and watch the full demo video.** The robot observes a user's pose, infers their need via Gemini 2.0 Flash, picks up the appropriate item, and delivers it while speaking naturally.
+> **Click the image above to visit the Releases page and download the demo video.** The robot observes a user's pose, infers their need via Gemini 2.0 Flash, picks up the appropriate item, and delivers it while speaking naturally.
 
 ---
 
@@ -68,7 +68,7 @@ Camera Image ──> Perceptual Reasoning ──> Embodied Action ──> Task E
 
 - Python 3.10+
 - ROBOTIS OpenManipulator-X connected via USB
-- [Google Gemini API key](https://aistudio.google.com/apikey)
+- Google Gemini API key (obtain from Google AI Studio)
 
 ### Installation
 

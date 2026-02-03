@@ -12,7 +12,7 @@ Proactive Robot Assistance System: Google Gemini VLM + OpenManipulator-X + PyQt6
 | OS | Linux (Ubuntu recommended) or macOS. Windows partial support. |
 | Hardware | ROBOTIS OpenManipulator-X (Dynamixel IDs 11-14 arm, 15 gripper) |
 | USB Adapter | U2D2 or equivalent FTDI USB-to-serial for Dynamixel bus |
-| API Key | Google Gemini API key ([aistudio.google.com](https://aistudio.google.com)) |
+| API Key | Google Gemini API key (obtain from Google AI Studio) |
 | Webcam/Images | At least one test image of a person for VLM analysis |
 
 ---
@@ -184,7 +184,7 @@ FATAL ERROR: Could not open port /dev/ttyUSB0
 CRITICAL ERROR: GEMINI_API_KEY not set. Exiting.
 ```
 - Ensure `.env` file exists in the project root with `GEMINI_API_KEY=your_key`.
-- Verify the key is valid at [aistudio.google.com](https://aistudio.google.com).
+- Verify the key is valid at Google AI Studio.
 
 ### PyAudio / TTS Failure
 ```

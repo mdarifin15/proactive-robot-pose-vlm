@@ -24,3 +24,9 @@ Thumbs.db
 
 # Claude
 .claude/
+
+# Large binary files (upload to GitHub Releases instead)
+*.mp4
+*.avi
+*.mov
+*.mkv
