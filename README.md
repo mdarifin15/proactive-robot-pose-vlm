@@ -3,6 +3,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Gemini 2.0 Flash](https://img.shields.io/badge/VLM-Gemini%202.0%20Flash-orange.svg)](https://deepmind.google/technologies/gemini/)
 [![OpenManipulator-X](https://img.shields.io/badge/robot-OpenManipulator--X-green.svg)](https://emanual.robotis.com/docs/en/platform/openmanipulator_x/overview/)
+[![License](https://img.shields.io/badge/license-Academic-lightgrey.svg)]()
 
 A **command-free** proactive robot assistance system that observes a user's body language through a camera, infers their unspoken needs using a Vision-Language Model (Google Gemini 2.0 Flash), and autonomously delivers physical assistance using an OpenManipulator-X robot arm -- all without any verbal or typed command.
 
