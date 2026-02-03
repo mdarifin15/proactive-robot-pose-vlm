@@ -10,13 +10,6 @@ A **command-free** proactive robot assistance system that observes a user's body
 > **First Two Month Project (FTMP)** -- University of Tsukuba, Graduate School of Science and Technology
 > **Author:** Muhammad Arifin (D1 | 202530195) | **Supervisor:** Prof. Fumihide Tanaka
 
----
-
-## Demo
-
-[![Demo Video](assets/demo_thumbnail.jpg)](https://github.com/mdarifin15/proactive-robot-pose-vlm/releases)
-
-> **Click the image above to visit the Releases page and download the demo video.** The robot observes a user's pose, infers their need via Gemini 2.0 Flash, picks up the appropriate item, and delivers it while speaking naturally.
 
 ---
 
